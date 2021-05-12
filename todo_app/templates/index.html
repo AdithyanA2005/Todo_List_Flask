@@ -1,0 +1,42 @@
+{% extends 'base/layout.html' %}
+{% block body %}
+{% include 'crud/create.html' %}
+    <section class="section">
+        {% if todo_list|length == 0 %}
+            <blockquote class="container">
+                <h1>Hello!</h1>
+                <h5>
+                    You have no todos created. Create your first todo 
+                    <a type="button" onclick="discover_add()" >here</a>
+                <!-- by clicking on the '+' button at the top right corne -->
+                </h5> 
+            </blockquote>
+        {% else %}
+        <table id="table" class="centered">
+            <thead>
+                <tr>
+                    <th>S-No</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Date Added</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>    
+                {% for todo in todo_list %}
+                <tr>
+                    <td class="todo-no">{{loop.index}}</td>
+                    <td class="todo-title">{{todo.title}}</td>
+                    <td class="todo-description">{{todo.description}}</td>
+                    <td class="todo-date">{{todo.date_added}}</td>
+                    <td class="todo-action">
+                        <a href="/edit/{{todo.todo_id}}" type="button" class="btn-floating btn-large btn"><i class="material-icons">edit</i></a>
+                        <a href="/delete/{{todo.todo_id}}" type="button" class="btn-floating btn-large btn"><i class="material-icons">delete</i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    <section/>
+{% endblock body %}
